@@ -1,0 +1,49 @@
+@charset 'UTF-8';
+/* Slider */
+
+.slick-loading .slick-list {}
+
+/* Dots */
+
+.slick-dotted.slick-slider {
+    margin-bottom: 0;
+}
+
+.slick-dots {
+    margin: 0;
+    display: block;
+    list-style: none;
+}
+
+.slick-dots li {
+    position: relative;
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin: 0 32px 0 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    overflow: visible;
+    cursor: pointer;
+    border: solid 2px #00b3e3;
+    border-radius: 10px;
+}
+
+.slick-dots li:hover {
+    border-color: #00b3e3 !important;
+}
+
+.slick-dots li.slick-active {
+    border-color: #00b3e3 !important;
+    background: #00b3e3 !important;
+}
+
+.slick-dots li button {
+    display: none;
+}
+
+.slick-dots li:before {
+    display: none !important;
+}

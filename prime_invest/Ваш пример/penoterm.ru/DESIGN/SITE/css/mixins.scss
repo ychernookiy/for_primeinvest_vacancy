@@ -1,0 +1,65 @@
+@mixin both
+{
+  &:after
+  {
+    clear: both;
+    content: '';
+    display: table;
+  }
+}
+
+@mixin box-sizing
+{
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+@mixin skewX ($deg: -20)
+{
+  -webkit-transform: skewX($deg+deg);
+  -moz-transform: skewX($deg+deg);
+  -ms-transform: skewX($deg+deg);
+  -o-transform: skewX($deg+deg);
+  transform: skewX($deg+deg);
+}
+
+
+@mixin transition ($speed: 0.2)
+{
+  -webkit-transition: all $speed+s linear;
+  -moz-transition: all $speed+s linear;
+  transition: all $speed+s linear;
+}
+
+@mixin translate ($Ox: 0, $Oy: 0, $Oz: 0)
+{
+  -webkit-transform: translateX($Ox) translateY($Oy) translateZ($Oz);
+  -moz-transform: translateX($Ox) translateY($Oy) translateZ($Oz);
+  -ms-transform: translateX($Ox) translateY($Oy) translateZ($Oz);
+  -o-transform: translateX($Ox) translateY($Oy) translateZ($Oz);
+  transform: translateX($Ox) translateY($Oy) translateZ($Oz);
+}
+
+@mixin col($condition) {
+
+  $type: $condition;
+
+  >div
+  {
+    @if $type == 6 {
+      flex-basis: calc( 100% /  6);
+    } @else if $type == 5 {
+      flex-basis: calc( 100% /  5);
+    } @else if $type == 4 {
+      flex-basis: calc( 100% /  4);
+    } @else if $type == 3 {
+      flex-basis: calc( 100% /  3);
+    } @else if $type == 2 {
+      flex-basis: calc( 100% /  2);
+    } @else {
+      flex-basis: calc( 100% /  1);
+    }
+
+    overflow: hidden;
+  }
+}

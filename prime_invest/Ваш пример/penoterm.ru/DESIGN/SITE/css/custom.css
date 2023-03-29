@@ -1,0 +1,15 @@
+.hidden {
+    display: none !important;
+}
+
+input[name=address] {
+    display: none !important;
+}
+
+.page_filter_wrap {
+    display: none;
+}
+
+.page_filter_wrap.active {
+    display: block;
+}

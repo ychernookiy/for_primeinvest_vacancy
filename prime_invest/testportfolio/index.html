@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+{strip}
+
+{$html_class_array = []}
+{$_color_scheme_class = 'color_scheme_'|cat:str_replace('img/themesettings/','',str_replace('.png','',$theme_settings.color_scheme))}
+
+{if $theme_settings.color_scheme}{$html_class_array[] = $_color_scheme_class}{/if}
+{if $theme_settings.font_size}{$html_class_array[] = $theme_settings.font_size}{/if}
+{if $theme_settings.font_family}{$html_class_array[] = $theme_settings.font_family}{/if}
+{if $wa->globals('isMyAccount')}{$html_class_array[] = 'my'}{/if}
+
+{if $wa->shop}
+    {if method_exists($wa->shop, 'checkout')}
+        {$_cart_url = $wa->shop->checkout()->cartUrl()}
+    {else}
+        {$_cart_url = $wa->getUrl('shop/frontend/cart')}
+    {/if}
+{/if}
+
+{$_is_order_page = $wa->globals("isOrderPage")}
+{if !empty($_is_order_page)}
+    {$html_class_array[] = "is-order-page"}
+{/if}
+
+{/strip}
+<html{if !empty($html_class_array)} class="{join(' ', $html_class_array)}"{/if}>
+
+{$_head_prefix = $wa->globals("headPrefix")}
+
+<head {if !empty($_head_prefix)}prefix="{$_head_prefix}"{/if}>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1{if $wa->isMobile()}, maximum-scale=1, user-scalable=0{/if}" />
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+
+    <title>{$wa->title()|escape}</title>
+    <meta name="keywords" content="{$wa->meta('keywords')|escape}" />
+    <meta name="description" content="{$wa->meta('description')|escape}" />
+
+    {if !empty($canonical)}<link rel="canonical" href="{$canonical}"/>{/if}
+    <link rel="icon" href="/favicon.ico"/>
+    <link rel="shortcut icon" href="/favicon.ico"/>
+    {if $wa->blog}
+        <!-- rss -->
+        {$rss=$wa->blog->rssUrl()}
+        {if $rss}<link rel="alternate" type="application/rss+xml" title="{$wa->accountName()}" href="{$rss}">{/if}
+    {/if}
+
+    <!-- css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <link href="{$wa_theme_url}default.css?v{$wa_theme_version}" rel="stylesheet" type="text/css"/>
+    {$wa->css()} {* links active plugins CSS *}
+    {if $theme_settings.font_family|strstr:'_google_'}
+        {if $theme_settings.font_family|strstr:'fira'}{$_real_font_name = 'Fira+Sans:400,500,700,400italic,500italic,700italic'}{/if}
+        {if $theme_settings.font_family|strstr:'opensans'}{$_real_font_name = 'Open+Sans:400,700,700italic,400italic'}{/if}
+        {if $theme_settings.font_family|strstr:'ptsans'}{$_real_font_name = 'PT+Sans:400,700,700italic,400italic'}{/if}
+        {if $theme_settings.font_family|strstr:'ptserif'}{$_real_font_name = 'PT+Serif:400,700,700italic,400italic'}{/if}
+        {if $theme_settings.font_family|strstr:'ptsansandserif'}{$_real_font_name = 'PT+Sans+Caption:400,700|PT+Serif:400,700,700italic,400italic'}{/if}
+        {if $theme_settings.font_family|strstr:'roboto'}{$_real_font_name = 'Roboto:400,700,700italic,400italic'}{/if}
+        {if $theme_settings.font_family|strstr:'lora'}{$_real_font_name = 'Lora:400,700,700italic,400italic'}{/if}
+        {if $theme_settings.font_family|strstr:'ubuntu'}{$_real_font_name = 'Ubuntu:400,700,700italic,400italic'}{/if}
+        <link href='https://fonts.googleapis.com/css?family={$_real_font_name}&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+    {/if}
+
+    <!-- js -->
+    <script type="text/javascript" src="{$wa_static_url}wa-content/js/jquery/jquery-1.11.1.min.js" ></script>
+    <script type="text/javascript" src="{$wa_static_url}wa-content/js/jquery/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="{$wa_theme_url}default.js?v{$wa_theme_version}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="filters.js"></script>
+    
+
+    {$wa->js()} {* links active plugins JS *}
+
+    {include file="`$wa_active_theme_path`/head.html" inline}
+
+    {$wa->head()} {* links Google Analytics tracking code, site's custom JS (defined in Site app settings), and meta data such as Open Graph data *}
+
+    <!-- custom colors -->
+    <style>
+        
+    </style>
+
+    <!--[if lt IE 9]>
+    <script>
+    document.createElement('header');
+    document.createElement('nav');
+    document.createElement('section');
+    document.createElement('article');
+    document.createElement('aside');
+    document.createElement('footer');
+    document.createElement('figure');
+    document.createElement('hgroup');
+    document.createElement('menu');
+    </script>
+    <![endif]-->
+
+</head>
+<body>
+ 
+                {include file="`$wa_active_theme_path`/header.html" inline}
+
+    <!-- APP CONTENT -->
+    <main class="maincontent">
+        <div class="container">
+            {include file="`$wa_active_theme_path`/main.html" inline}
+        </div>
+    </main>
+                {include file="`$wa_active_theme_path`/footer.html" inline}
+</body>
+</html>
